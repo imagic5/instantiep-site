@@ -190,6 +190,32 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}ul{list-st
 .cta-email a{color:var(--acc);font-weight:700;border-bottom:2px solid rgba(0,201,167,.3);transition:all var(--tr)}
 .cta-email a:hover{border-color:var(--acc)}
 
+/* CONTACT FORM */
+.cta-form{max-width:680px;margin:40px auto 0;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:var(--rl);padding:40px 36px;text-align:left}
+.cta-form h3{font-size:1.2rem;font-weight:700;color:#fff;margin-bottom:6px;text-align:center}
+.cta-form .form-sub{font-size:.9rem;color:rgba(255,255,255,.5);text-align:center;margin-bottom:28px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group.full{grid-column:1/-1}
+.form-group label{font-size:.8rem;font-weight:600;color:rgba(255,255,255,.7);letter-spacing:.5px;text-transform:uppercase}
+.form-group label .opt{text-transform:none;font-weight:400;color:rgba(255,255,255,.35);font-size:.75rem}
+.form-group input,.form-group select,.form-group textarea{
+background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;
+padding:12px 16px;color:#fff;font-size:.95rem;font-family:inherit;
+transition:all var(--tr);outline:none;width:100%}
+.form-group input::placeholder,.form-group textarea::placeholder{color:rgba(255,255,255,.3)}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{
+border-color:var(--acc);background:rgba(0,201,167,.06);box-shadow:0 0 0 3px rgba(0,201,167,.1)}
+.form-group select{cursor:pointer;-webkit-appearance:none;appearance:none;
+background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='rgba(255,255,255,0.5)' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+.form-group select option{background:#0f1b3d;color:#fff}
+.form-group textarea{resize:vertical;min-height:80px}
+.form-phone-row{display:grid;grid-template-columns:1fr 120px;gap:16px}
+.form-submit{display:flex;justify-content:center;margin-top:24px}
+.form-submit .btn{width:100%;max-width:320px;justify-content:center;font-size:1.05rem;padding:16px 36px}
+.form-success{display:none;text-align:center;padding:24px;color:var(--acc);font-size:1rem;font-weight:600}
+
 /* FOOTER */
 .footer{background:#060a18;padding:60px 0 32px;color:rgba(255,255,255,.4)}
 .ft-top{display:flex;justify-content:space-between;align-items:flex-start;padding-bottom:40px;border-bottom:1px solid rgba(255,255,255,.06);gap:40px;flex-wrap:wrap}
@@ -228,6 +254,8 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}ul{list-st
 .mka{grid-template-columns:repeat(2,1fr)}.tgrid{grid-template-columns:repeat(2,1fr)}
 .ft-top{flex-direction:column}.ft-links{flex-direction:column;gap:32px}
 .ft-bot{flex-direction:column;text-align:center}
+.form-row{grid-template-columns:1fr}.form-phone-row{grid-template-columns:1fr}
+.cta-form{padding:28px 20px}
 }
 @media(max-width:480px){
 .ctr{padding:0 16px}.sp{padding:56px 0}
@@ -411,10 +439,61 @@ img{max-width:100%;display:block}a{color:inherit;text-decoration:none}ul{list-st
 <div class="ctr">
 <div class="slbl anim fu" style="justify-content:center;color:var(--acc)"><span class="slbl-ln" style="background:var(--acc)"></span>Investment Opportunity<span class="slbl-ln" style="background:var(--acc)"></span></div>
 <h2 class="sttl anim fu d1">Join Us in Transforming<br>Special Education</h2>
-<p class="ssub cen anim fu d2" style="color:rgba(255,255,255,.6)">We're raising a pre-seed round to accelerate product development, launch pilot programs with school districts, and scale our AI training pipeline. Let's build the future of inclusive education together.</p>
-<div class="cta-btns anim fu d3">
-<a href="mailto:irosner1@gmail.com" target="_blank" class="btn btn-p" style="font-size:1.05rem;padding:18px 44px">&#9993; Request Investor Deck</a>
-<a href="mailto:irosner1@gmail.com?subject=Schedule%20a%20Call" target="_blank" class="btn btn-o" style="font-size:1.05rem;padding:18px 44px">&#128222; Schedule a Call</a>
+<p class="ssub cen anim fu d2" style="color:rgba(255,255,255,.6)">We're raising a pre-seed round to accelerate product development, launch pilot programs with school districts, and scale our AI training pipeline. Fill out the form below and we'll be in touch.</p>
+<div class="cta-form anim fu d3" id="contactForm">
+<h3>Get in Touch</h3>
+<p class="form-sub">Fill out the form and we'll reach out to schedule a conversation.</p>
+<form id="investorForm" onsubmit="return handleFormSubmit(event)">
+<div class="form-row">
+<div class="form-group"><label>First Name <span style="color:#ff6b6b">*</span></label><input type="text" id="firstName" placeholder="Jane" required></div>
+<div class="form-group"><label>Last Name <span style="color:#ff6b6b">*</span></label><input type="text" id="lastName" placeholder="Smith" required></div>
+</div>
+<div class="form-row">
+<div class="form-group"><label>Organization <span class="opt">(optional)</span></label><input type="text" id="orgName" placeholder="Acme Capital / Lincoln High School"></div>
+<div class="form-group"><label>Role <span style="color:#ff6b6b">*</span></label>
+<select id="role" required>
+<option value="" disabled selected>Select your role</option>
+<option value="Angel Investor">Angel Investor</option>
+<option value="Venture Capital">Venture Capital</option>
+<option value="Superintendent">Superintendent</option>
+<option value="Principal">Principal</option>
+<option value="Director of Special Education">Director of Special Education</option>
+<option value="Special Education Teacher">Special Education Teacher</option>
+<option value="EdTech Advisor">EdTech Advisor</option>
+<option value="Other">Other</option>
+</select>
+</div>
+</div>
+<div class="form-row">
+<div class="form-group"><label>Title <span class="opt">(optional)</span></label><input type="text" id="title" placeholder="Managing Partner / Assistant Principal"></div>
+<div class="form-group"><label>Email Address <span style="color:#ff6b6b">*</span></label><input type="email" id="email" placeholder="jane@example.com" required></div>
+</div>
+<div class="form-row">
+<div class="form-group">
+<label>Phone Number <span class="opt">(optional)</span></label>
+<div class="form-phone-row">
+<input type="tel" id="phone" placeholder="(555) 123-4567">
+<input type="text" id="ext" placeholder="Ext.">
+</div>
+</div>
+<div class="form-group"><label>I'm Interested In <span style="color:#ff6b6b">*</span></label>
+<select id="interest" required>
+<option value="" disabled selected>Select one</option>
+<option value="Requesting the Investor Deck">Requesting the Investor Deck</option>
+<option value="Scheduling a Call">Scheduling a Call</option>
+<option value="Pilot Program Partnership">Pilot Program Partnership</option>
+<option value="Learning More About Instant IEP">Learning More About Instant IEP</option>
+<option value="General Inquiry">General Inquiry</option>
+</select>
+</div>
+</div>
+<div class="form-group full" style="margin-top:4px">
+<label>Additional Information <span class="opt">(optional)</span></label>
+<textarea id="additionalInfo" placeholder="Tell us about your interest, questions, or how Instant IEP could help your school or portfolio..."></textarea>
+</div>
+<div class="form-submit"><button type="submit" class="btn btn-p">&#9993; Send Inquiry</button></div>
+</form>
+<div class="form-success" id="formSuccess">&#10003; Your inquiry has been prepared! Please send the email that just opened to complete your submission.</div>
 </div>
 <div class="cta-email anim fu d4">Or email us directly at <a href="mailto:irosner1@gmail.com" target="_blank">irosner1@gmail.com</a></div>
 </div>
@@ -564,6 +643,40 @@ window.scrollTo({top:top,behavior:'smooth'});
 });
 });
 })();
+/* Contact form handler */
+function handleFormSubmit(e){
+e.preventDefault();
+var fn=document.getElementById('firstName').value.trim();
+var ln=document.getElementById('lastName').value.trim();
+var org=document.getElementById('orgName').value.trim();
+var role=document.getElementById('role').value;
+var title=document.getElementById('title').value.trim();
+var email=document.getElementById('email').value.trim();
+var phone=document.getElementById('phone').value.trim();
+var ext=document.getElementById('ext').value.trim();
+var interest=document.getElementById('interest').value;
+var info=document.getElementById('additionalInfo').value.trim();
+var subject=interest+' - '+fn+' '+ln;
+var body='INSTANT IEP - INVESTOR INQUIRY\n';
+body+='================================\n\n';
+body+='Name: '+fn+' '+ln+'\n';
+if(org)body+='Organization: '+org+'\n';
+body+='Role: '+role+'\n';
+if(title)body+='Title: '+title+'\n';
+body+='Email: '+email+'\n';
+if(phone){body+='Phone: '+phone;if(ext)body+=' ext. '+ext;body+='\n';}
+body+='\nInterest: '+interest+'\n';
+if(info)body+='\nAdditional Information:\n'+info+'\n';
+body+='\n================================\n';
+body+='Sent from Instant IEP Investor Landing Page\n';
+var mailto='mailto:irosner1@gmail.com'
++'?subject='+encodeURIComponent(subject)
++'&body='+encodeURIComponent(body);
+window.open(mailto,'_blank');
+document.getElementById('formSuccess').style.display='block';
+setTimeout(function(){document.getElementById('formSuccess').style.display='none';},8000);
+return false;
+}
 </script>
 </body>
 </html>
